@@ -17,7 +17,7 @@ export const isAdmin = (req, res, next) => {
     return next();
   } catch (error) {
     return res.status(401).json({
-      message: "you must be login",
+      message: "you don't have a permission",
       success: false,
     });
   }
