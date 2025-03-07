@@ -3,6 +3,7 @@ import catchAsync from "../Utils/catchAsync.js";
 import ApiFeatures from "../Utils/apiFeatures.js";
 import HandleERROR from "../Utils/handleError.js";
 import Post from "../Models/postMd.js";
+import Comment from "../Models/commentMd.js";
 
 export const getAll=catchAsync(async (req,res,next)=>{
   const features=new ApiFeatures(Category,req?.query).filter().paginate().sort().populate().limitFields()
@@ -53,7 +54,9 @@ export const remove=catchAsync(async (req,res,next)=>{
     const {id}=req.params
     await Category.findByIdAndDelete(id)
     const posts=await Post.deleteMany({categoryId:id})
-    
+    for(let post of posts){
+        await Comment.deleteMany({postId:post._id})
+    }
     return res.status(200).json({
       success:true,
       message:'Category Removed Successfully'
