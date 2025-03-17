@@ -21,6 +21,7 @@ export const create=catchAsync(async (req,res,next)=>{
     return res.status(200).json({
       success:true,
       data:category,
+      message:'category added successfully'
     })
   })
 
