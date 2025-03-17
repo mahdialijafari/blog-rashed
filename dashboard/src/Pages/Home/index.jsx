@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <Container maxWidth="lg" sx={{ textAlign: "center", paddingTop: 4, color: "#ecf0f1" }}>
       <Typography variant="h2" sx={{ marginBottom: 2, fontWeight: "bold", color: "#3498db", textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}>
-        Welcome to Our Blog
+        Welcome to Admin Dashboard 
       </Typography>
       <Typography variant="h5" sx={{ marginBottom: 4, color: "#bdc3c7", fontStyle: "italic" }}>
         Explore insightful articles, tips, and more from our passionate writers.

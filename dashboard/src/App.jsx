@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import Layout from "./Components/Layout";
 import { AuthContext } from "./Utils/AuthContext";
@@ -22,8 +22,7 @@ import {
 } from "./Pages";
 
 export default function App() {
-  const { token } = useContext(AuthContext);
-
+  const { token,user } = useContext(AuthContext);
   return (
     <>
       <Routes>
@@ -31,7 +30,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
 
         {/* Protected Routes */}
-        <Route path="/" element={<Layout /> }>
+        <Route path="/" element={!token || user?.role!='admin'? <Navigate to={'/login'} /> :<Layout/> }>
           <Route index element={<Home />} />
           <Route path="comments" element={<Comments />} />
 
