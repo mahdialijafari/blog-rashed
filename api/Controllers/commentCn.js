@@ -41,7 +41,7 @@ export const changeActivity=catchAsync(async(req,res,next)=>{
 })
 export const remove=catchAsync(async(req,res,next)=>{
     const {id}=req.params
-    const comment=await Comment.findByIdAndDelete(id)
+    await Comment.findByIdAndDelete(id)
     return res.status(200).json({
         success:true,
         message:'comment remove successfully'

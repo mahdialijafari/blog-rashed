@@ -5,7 +5,7 @@ import Post from "../Models/postMd.js";
 import Comment from "../Models/commentMd.js";
 
 export const getAll = catchAsync(async (req, res, next) => {
-  const features = new ApiFeatures(Category, req?.query)
+  const features = new ApiFeatures(Post, req?.query)
     .filter()
     .paginate()
     .sort()

@@ -42,8 +42,8 @@ const Layout = () => {
           {[
             { text: "Home", icon: <Home />, path: "/" },
             { text: "Categories", icon: <Category />, path: "/categories" },
-            { text: "Comments", icon: <Comment />, path: "/comments" },
             { text: "Posts", icon: <PostAdd />, path: "/posts" },
+            { text: "Comments", icon: <Comment />, path: "/comments" },
             { text: "Users", icon: <People />, path: "/users" },
           ].map(({ text, icon, path }) => (
             <ListItem button key={text} component={Link} to={path}>
