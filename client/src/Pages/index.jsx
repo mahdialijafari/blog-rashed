@@ -1,9 +1,9 @@
 import Auth from "./Auth";
 import Home from "./Home";
 import NotFound from "./NotFound";
-import Post from "./Post";
+import Posts from "./Posts";
 import PostDetails from "./PostDetails";
 import Profile from "./Profile";
 
 
-export {Auth,Home,NotFound,Post,PostDetails,Profile}
+export {Auth,Home,NotFound,Posts,PostDetails,Profile}
