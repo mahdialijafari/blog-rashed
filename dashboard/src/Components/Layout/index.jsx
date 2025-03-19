@@ -6,6 +6,7 @@ import {
   ListItemIcon,
   ListItemText,
   Button,
+  Typography,
 } from "@mui/material";
 import {
   Category,
@@ -38,6 +39,12 @@ const Layout = () => {
           },
         }}
       >
+        <Typography sx={{
+            textAlign:'center',
+            padding:'4% 0',
+            fontSize:'24px',
+            color:'lightblue'
+        }}>Admin Dashboard</Typography>
         <List>
           {[
             { text: "Home", icon: <Home />, path: "/" },

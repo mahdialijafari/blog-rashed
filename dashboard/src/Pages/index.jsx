@@ -12,8 +12,7 @@ import CreatePosts from "./Posts/Create";
 import UpdatePosts from "./Posts/Update";
 import Users from "./Users";
 import GetAllUsers from "./Users/GetAll";
-import CreateUsers from "./Users/Create";
 import UpdateUsers from "./Users/Update";
 
 
-export {Home,Categories,GetAllCategories,CreateCategories,UpdateCategories,Comments,Login,NotFound,Posts,GetAllPosts,CreatePosts,UpdatePosts,Users,GetAllUsers,CreateUsers,UpdateUsers}
+export {Home,Categories,GetAllCategories,CreateCategories,UpdateCategories,Comments,Login,NotFound,Posts,GetAllPosts,CreatePosts,UpdatePosts,Users,GetAllUsers,UpdateUsers}

@@ -34,7 +34,7 @@ export const update=catchAsync(async (req,res,next)=>{
     return next(new HandleERROR("you don't have a permision",401))
   }
   const user=await User.findByIdAndUpdate(id,req.body,{
-    new:trur,
+    new:true,
     runValidators:true,
   }).select("-password -__v")
   return res.status(200).json({
