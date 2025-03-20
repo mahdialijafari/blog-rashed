@@ -14,7 +14,7 @@ const postSchema=new mongoose.Schema({
         required:[true,"description is required"],
     },
     categoryId:{
-        type:mongoose.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref:"Category",
     }
 },{
