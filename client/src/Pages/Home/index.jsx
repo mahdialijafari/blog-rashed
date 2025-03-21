@@ -68,8 +68,8 @@ const Home = () => {
                   <CardMedia component="img" height="180" image={post?.image} alt={post?.title} />
                   <CardContent>
                     <Typography variant="h6" fontWeight="bold">{post?.title}</Typography>
-                    <Typography variant="body2" sx={{ marginTop: 1 }}>{post?.description}</Typography>
-                    <Button component={Link} to={`/posts/${post._id}`} sx={{ marginTop: 2, color: '#2D336B', fontWeight: 'bold' }}>
+                    <Typography variant="body2" sx={{ marginTop: 1 }}>{post?.description.split(' ').slice(0,9).join(' ')}...</Typography>
+                    <Button component={Link} to={`/post-details/${post._id}/${post.title.replaceAll(' ','-')}`} sx={{ marginTop: 2, color: '#2D336B', fontWeight: 'bold' }}>
                       Read More
                     </Button>
                   </CardContent>

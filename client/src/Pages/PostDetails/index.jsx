@@ -102,7 +102,7 @@ const PostDetails = () => {
             </Box>
 
             <Typography variant="body1" sx={{ lineHeight: 1.8, color: "#2D336B" }}>
-              {post.content}
+              {post.description}
             </Typography>
           </CardContent>
         </Card>

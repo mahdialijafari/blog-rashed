@@ -51,13 +51,13 @@ console.log(posts.title)
                   <CardMedia component="img" height="180" image={post?.image} alt={post?.title} sx={{ borderTopLeftRadius: 2, borderTopRightRadius: 2 }} />
                   <CardContent>
                     <Typography variant="h6" fontWeight="bold">{post?.title}</Typography>
-                    <Typography variant="body2" sx={{ marginTop: 1, color: '#2D336B' }}>{post?.description}</Typography>
+                    <Typography variant="body2" sx={{ marginTop: 1, color: '#2D336B' }}>{post?.description.split(' ').slice(0,9).join(' ')}...</Typography>
                     <Box sx={{ marginTop: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Chip
                         label={post?.categoryId?.title}
                         sx={{ backgroundColor: '#7886C7', color: 'white', fontWeight: 'bold', padding: '5px 10px' }}
                       />
-                      <Button component={Link} to={`/post-details/${post._id}/${post.title}`} sx={{ color: '#2D336B', fontWeight: 'bold' }}>    
+                      <Button component={Link} to={`/post-details/${post._id}/${post.title.replaceAll(' ','-')}`} sx={{ color: '#2D336B', fontWeight: 'bold' }}>    
                         Read More
                       </Button>
                     </Box>

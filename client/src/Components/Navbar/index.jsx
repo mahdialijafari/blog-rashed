@@ -80,7 +80,7 @@ const Navbar = () => {
               Articles
             </Button>
             {token?<Button component={Link} to="/profile" startIcon={<AccountCircleIcon />} sx={{ color: '#1e3a8a' }}>
-              Profile
+              My Profile
             </Button>:<Button component={Link} to="/auth" startIcon={<LoginIcon />} sx={{ color: '#1e3a8a' }}>
               Login/Register
             </Button>}
