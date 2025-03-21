@@ -14,7 +14,7 @@ export default function App() {
       <main className="min-h-[90vh]">
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/posts/:categoryId/categoryName" element={<Posts />} />
+          <Route path="/posts/:categoryId/:categoryName" element={<Posts />} />
           <Route
             path="/auth"
             element={token ? <Navigate to={"/profile"} /> : <Auth />}
@@ -24,7 +24,7 @@ export default function App() {
             element={!token ? <Navigate to={"/auth"} /> : <Profile />}
           />
           <Route
-            path="/posts/:categoryId/categoryName"
+            path="/post-details/:id/:title"
             element={<PostDetails />}
           />
           <Route path="*" element={<NotFound />} />

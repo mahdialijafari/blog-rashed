@@ -53,7 +53,7 @@ const Navbar = () => {
                 <HomeIcon sx={{ marginRight: 1 }} />
                 Home
               </MenuItem>
-              <MenuItem component={Link} to="/posts" onClick={handleMenuClose}>
+              <MenuItem component={Link} to="/posts/:categoryId/categoryName" onClick={handleMenuClose}>
                 <PostAddIcon sx={{ marginRight: 1 }} />
                 Posts
               </MenuItem>
@@ -73,15 +73,15 @@ const Navbar = () => {
             <Button component={Link} to="/" startIcon={<HomeIcon />} sx={{ color: '#1e3a8a' }}>
               Home
             </Button>
-            <Button component={Link} to="/posts" startIcon={<PostAddIcon />} sx={{ color: '#1e3a8a' }}>
+            <Button component={Link} to="/posts/all/all-category" startIcon={<PostAddIcon />} sx={{ color: '#1e3a8a' }}>
               Posts
             </Button>
-            <Button component={Link} to="/posts" startIcon={<Article />} sx={{ color: '#1e3a8a' }}>
+            <Button component={Link} to="/articles" startIcon={<Article />} sx={{ color: '#1e3a8a' }}>
               Articles
             </Button>
             {token?<Button component={Link} to="/profile" startIcon={<AccountCircleIcon />} sx={{ color: '#1e3a8a' }}>
               Profile
-            </Button>:<Button component={Link} to="/login" startIcon={<LoginIcon />} sx={{ color: '#1e3a8a' }}>
+            </Button>:<Button component={Link} to="/auth" startIcon={<LoginIcon />} sx={{ color: '#1e3a8a' }}>
               Login/Register
             </Button>}
           </Box>
