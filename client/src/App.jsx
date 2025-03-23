@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Auth, Home, NotFound, PostDetails, Posts, Profile } from "./Pages";
 import { Toaster } from "react-hot-toast";
 import { AuthContext } from "./Utils/AuthContext";
+import Article from "./Pages/Articles";
 
 export default function App() {
   const { token } = useContext(AuthContext);
@@ -26,6 +27,10 @@ export default function App() {
           <Route
             path="/post-details/:id/:title"
             element={<PostDetails />}
+          />
+          <Route
+            path="/articles"
+            element={<Article />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

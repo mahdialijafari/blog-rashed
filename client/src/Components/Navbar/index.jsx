@@ -25,7 +25,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: '#ADD8E6', boxShadow: 'none' }}> {/* Light Blue Background */}
+    <AppBar position="sticky" sx={{ backgroundColor: '#A9B5DF', boxShadow: 'none' }}> {/* Light Blue Background */}
       <Toolbar sx={{ padding: 0 }}> {/* Removed padding for no space from corners */}
         <Typography variant="h6" sx={{ flexGrow: 1,padding:'0 100px' }}>
           <Link to="/" style={{ color: '#1e3a8a', textDecoration: 'none' }}>Blog</Link> {/* Dark Blue Text */}
