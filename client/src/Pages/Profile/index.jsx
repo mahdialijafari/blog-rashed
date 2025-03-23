@@ -8,6 +8,7 @@ import {
   Box,
   IconButton,
   CircularProgress,
+  Avatar,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
@@ -18,36 +19,50 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
-  
-  // Safely extract user and ID from Redux
-  const user = useSelector(state => state.auth?.user);
-  const id = user?.id; 
 
-  console.log("User ID:", user); // Debugging line
-  
+  // Extract user from Redux state
+  const user = useSelector((state) => state.auth?.user);
+  const token = useSelector((state) => state.auth?.token);
+
   useEffect(() => {
-    if (!id) return; // Avoid fetching if ID is undefined
-    (async () => {
+    if (!user?._id) return;
+
+    const fetchProfile = async () => {
       try {
         setLoading(true);
-        const response = await fetchData(`users/${id}`); // ✅ Fixed interpolation
-        setProfile(response.data);
+        const response = await fetchData(`users/${user._id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.success) {
+          setProfile(response.data);
+        }
       } catch (error) {
-        console.error("Failed to fetch user data", error);
+        console.error("Failed to fetch user data:", error);
       } finally {
         setLoading(false);
       }
-    })();
-  }, [id]); // ✅ Dependency array ensures fetch only runs when ID exists
+    };
+
+    fetchProfile();
+  }, [user?._id, token]);
 
   // Update user profile
   const handleUpdateProfile = async () => {
-    if (!id) return;
+    if (!user?._id) return;
+
     try {
       setLoading(true);
-      const response = await fetchData(`users/${id}`, { // ✅ Fixed interpolation
+      const response = await fetchData(`users/${user._id}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(profile),
       });
 
@@ -55,7 +70,7 @@ const Profile = () => {
         setEditMode(false);
       }
     } catch (error) {
-      console.error("Failed to update profile", error);
+      console.error("Failed to update profile:", error);
     } finally {
       setLoading(false);
     }
@@ -67,21 +82,44 @@ const Profile = () => {
 
   if (loading || !profile) {
     return (
-      <Box display="flex" justifyContent="center" mt={10}>
+      <Box display="flex" justifyContent="center" alignItems="center" height="80vh">
         <CircularProgress />
       </Box>
     );
   }
 
   return (
-    <Container maxWidth="sm">
-      <Paper elevation={6} sx={{ padding: 4, mt: 8, textAlign: "center", bgcolor: "#FFF2F2" }}>
-        <Typography variant="h4" fontWeight="bold" color="#2D336B">
-          Profile Information
-        </Typography>
-        <Typography variant="body2" color="#7886C7" mb={3}>
-          Manage your account details
-        </Typography>
+    <Container maxWidth="md">
+      <Paper
+        elevation={8}
+        sx={{
+          padding: 5,
+          m: 8,
+          textAlign: "center",
+          bgcolor: "#FFF2F2",
+          borderRadius: "20px",
+          boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
+          <Avatar
+            sx={{
+              width: 100,
+              height: 100,
+              bgcolor: "#2D336B",
+              fontSize: 40,
+              fontWeight: "bold",
+            }}
+          >
+            {profile.username?.charAt(0).toUpperCase()}
+          </Avatar>
+          <Typography variant="h4" fontWeight="bold" color="#2D336B" mt={2}>
+            Profile Information
+          </Typography>
+          <Typography variant="body2" color="#7886C7" mb={3}>
+            Manage your account details
+          </Typography>
+        </Box>
 
         {editMode ? (
           <>
@@ -92,7 +130,7 @@ const Profile = () => {
               value={profile.username}
               onChange={handleChange}
               margin="normal"
-              sx={{ bgcolor: "white" }}
+              sx={{ bgcolor: "white", borderRadius: "10px" }}
             />
             <TextField
               fullWidth
@@ -101,7 +139,7 @@ const Profile = () => {
               value={profile.email}
               onChange={handleChange}
               margin="normal"
-              sx={{ bgcolor: "white" }}
+              sx={{ bgcolor: "white", borderRadius: "10px" }}
             />
             <TextField
               fullWidth
@@ -110,12 +148,20 @@ const Profile = () => {
               value={profile.role}
               onChange={handleChange}
               margin="normal"
-              sx={{ bgcolor: "white" }}
+              sx={{ bgcolor: "white", borderRadius: "10px" }}
             />
             <Button
               fullWidth
               variant="contained"
-              sx={{ mt: 2, bgcolor: "#2D336B", "&:hover": { bgcolor: "#7886C7" } }}
+              sx={{
+                mt: 3,
+                bgcolor: "#2D336B",
+                color: "white",
+                "&:hover": { bgcolor: "#7886C7" },
+                borderRadius: "10px",
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
               onClick={handleUpdateProfile}
             >
               <SaveIcon sx={{ mr: 1 }} /> Save Changes
@@ -123,17 +169,40 @@ const Profile = () => {
           </>
         ) : (
           <>
-            <Typography variant="h6" color="#2D336B">
-              Username: {profile.username}
-            </Typography>
-            <Typography variant="h6" color="#2D336B">
-              Email: {profile.email}
-            </Typography>
-            <Typography variant="h6" color="#2D336B">
-              Role: {profile.role}
-            </Typography>
-            <Box display="flex" justifyContent="center" mt={2}>
-              <IconButton onClick={() => setEditMode(true)} sx={{ color: "#2D336B" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+                mt: 2,
+                p: 3,
+                bgcolor: "#ffffff",
+                borderRadius: "15px",
+                boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <Typography variant="h6" color="#2D336B">
+                <strong>Username:</strong> {profile.username}
+              </Typography>
+              <Typography variant="h6" color="#2D336B">
+                <strong>Email:</strong> {profile.email}
+              </Typography>
+              <Typography variant="h6" color="#2D336B">
+                <strong>Role:</strong> {profile.role}
+              </Typography>
+            </Box>
+
+            <Box display="flex" justifyContent="center" mt={3}>
+              <IconButton
+                onClick={() => setEditMode(true)}
+                sx={{
+                  bgcolor: "#2D336B",
+                  color: "white",
+                  "&:hover": { bgcolor: "#7886C7" },
+                  padding: 2,
+                  borderRadius: "50%",
+                }}
+              >
                 <EditIcon />
               </IconButton>
             </Box>

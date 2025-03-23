@@ -17,7 +17,7 @@ export default function App() {
           <Route path="/posts/:categoryId/:categoryName" element={<Posts />} />
           <Route
             path="/auth"
-            element={token ? <Navigate to={"/"} /> : <Auth />}
+            element={token ? <Navigate to={"/profile"} /> : <Auth />}
           />
           <Route
             path="/profile"

@@ -15,20 +15,24 @@ import fetchData from "../../../Utils/fetchData";
 import useFormFields from "../../../Utils/useFormFields";
 import notify from "../../../Utils/notify";
 import { AuthContext } from "../../../Utils/AuthContext";
+import { login } from "../../../Store/Slices/AuthSlice";
+import { useDispatch } from "react-redux";
 
 const Login = ({ handlePageType }) => {
   const [fields, handleChange] = useFormFields();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { handleAuth } = useContext(AuthContext);
+  const { token, handleAuth } = useContext(AuthContext); // ✅ Extract token from context
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-
+  
     try {
+      console.log("🔹 Sending request with:", fields);
       const response = await fetchData("auth", {
         method: "POST",
         headers: {
@@ -36,22 +40,28 @@ const Login = ({ handlePageType }) => {
         },
         body: JSON.stringify(fields),
       });
-
+  
+      console.log("✅ API Response:", response);
+  
       if (response.success) {
         notify(response.message, "success");
-        handleAuth(response.data.token, response.data.user);
-        handleAuth(token, { id: user.id, username: user.username, email: user.email });
-
-        navigate("/");
+  
+        const { token, user } = response.data;
+        console.log("✅ Extracted Token:", token);
+        console.log("✅ Extracted User:", user);
+  
+        dispatch(login({ token, user }));
+        handleAuth(token, user);
+        navigate("/profile");
       } else {
         setError(response.message || "Invalid username or password");
       }
     } catch (error) {
-      setError("Connection Lost");
+      console.error("❌ Login Error:", error);
+      setError("Connection Lost. Please check your network or API.");
     } finally {
       setLoading(false);
     }
-    console.log(response?.data?._id)
   };
   
   return (
@@ -72,7 +82,7 @@ const Login = ({ handlePageType }) => {
             fullWidth
             label="Username"
             name="username"
-            value={fields.username}
+            value={fields.username || ""}
             onChange={handleChange}
             variant="outlined"
             margin="normal"
@@ -84,7 +94,7 @@ const Login = ({ handlePageType }) => {
             label="Password"
             name="password"
             type="password"
-            value={fields.password}
+            value={fields.password || ""}
             onChange={handleChange}
             variant="outlined"
             margin="normal"
