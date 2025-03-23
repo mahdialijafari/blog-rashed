@@ -40,6 +40,8 @@ const Login = ({ handlePageType }) => {
       if (response.success) {
         notify(response.message, "success");
         handleAuth(response.data.token, response.data.user);
+        handleAuth(token, { id: user.id, username: user.username, email: user.email });
+
         navigate("/");
       } else {
         setError(response.message || "Invalid username or password");
@@ -49,8 +51,9 @@ const Login = ({ handlePageType }) => {
     } finally {
       setLoading(false);
     }
+    console.log(response?.data?._id)
   };
-
+  
   return (
     <Container maxWidth="sm">
       <Paper

@@ -3,10 +3,8 @@ import { AppBar, Toolbar, Typography, Button, Box, IconButton, Menu, MenuItem, u
 import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import CategoryIcon from '@mui/icons-material/Category';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LoginIcon from '@mui/icons-material/Login';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AuthContext } from '../../Utils/AuthContext';
 import { Article } from '@mui/icons-material';
@@ -16,7 +14,6 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);  // For opening menu
   const [openMenu, setOpenMenu] = useState(false);
   const {token}=useContext(AuthContext)
-
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
     setOpenMenu(true);
@@ -61,7 +58,7 @@ const Navbar = () => {
                 <LoginIcon sx={{ marginRight: 1 }} />
                 Login/Register
               </MenuItem>
-              <MenuItem component={Link} to="/profile" onClick={handleMenuClose}>
+              <MenuItem component={Link} to='/profile' onClick={handleMenuClose}>
                 <AccountCircleIcon sx={{ marginRight: 1 }} />
                 Profile
               </MenuItem>
@@ -79,7 +76,7 @@ const Navbar = () => {
             <Button component={Link} to="/articles" startIcon={<Article />} sx={{ color: '#1e3a8a' }}>
               Articles
             </Button>
-            {token?<Button component={Link} to="/profile" startIcon={<AccountCircleIcon />} sx={{ color: '#1e3a8a' }}>
+            {token?<Button component={Link} to='profile' startIcon={<AccountCircleIcon />} sx={{ color: '#1e3a8a' }}>
               My Profile
             </Button>:<Button component={Link} to="/auth" startIcon={<LoginIcon />} sx={{ color: '#1e3a8a' }}>
               Login/Register
