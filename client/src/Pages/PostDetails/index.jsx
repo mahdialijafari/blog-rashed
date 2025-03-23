@@ -19,7 +19,7 @@ import { AuthContext } from "../../Utils/AuthContext";
 const PostDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { token } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
   
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
@@ -109,63 +109,71 @@ const PostDetails = () => {
       </Container>
 
       {/* Comments Section */}
-      <Container sx={{ marginTop: 6 }}>
-        <Typography variant="h5" fontWeight="bold" color="#2D336B" gutterBottom>
-          Comments
-        </Typography>
+<Container sx={{ marginTop: 6 }}>
+  <Typography variant="h5" fontWeight="bold" color="#2D336B" gutterBottom>
+    Comments
+  </Typography>
 
-        {comments.length === 0 ? (
-          <Typography variant="body1" color="#2D336B">No comments yet. Be the first to comment!</Typography>
-        ) : (
-          comments.map((comment, index) => (
-            <Box
-              key={index}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                backgroundColor: "#A9B5DF",
-                padding: 2,
-                borderRadius: 2,
-                marginBottom: 2,
-              }}
-            >
-              <Avatar sx={{ bgcolor: "#2D336B", marginRight: 2 }}>
-                {comment.username?.charAt(0).toUpperCase()}
-              </Avatar>
-              <Box>
-                <Typography variant="body1" fontWeight="bold" color="#2D336B">
-                  {comment.username || "Anonymous"}
-                </Typography>
-                <Typography variant="body2" color="#2D336B">
-                  {comment.content}
-                </Typography>
-              </Box>
-            </Box>
-          ))
-        )}
-
-        {/* Comment Form */}
-        <Box component="form" onSubmit={handleSubmitComment} sx={{ marginTop: 4 }}>
-          <TextField
-            fullWidth
-            multiline
-            rows={3}
-            label="Write a comment..."
-            variant="outlined"
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            sx={{ backgroundColor: "white", borderRadius: 2 }}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            sx={{ marginTop: 2, backgroundColor: "#7886C7", color: "white" }}
-            disabled={loading}
-          >
-            {loading ? "Submitting..." : "Post Comment"}
-          </Button>
+  {/* Show comments to all users */}
+  {comments.length === 0 ? (
+    <Typography variant="body1" color="#2D336B">No comments yet.</Typography>
+  ) : (
+    comments.map((comment, index) => (
+      <Box
+        key={index}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          backgroundColor: "#A9B5DF",
+          padding: 2,
+          borderRadius: 2,
+          marginBottom: 2,
+        }}
+      >
+        <Avatar sx={{ bgcolor: "#2D336B", marginRight: 2 }}>
+          {comment?.userId?.username?.charAt(0).toUpperCase()}
+        </Avatar>
+        <Box>
+          <Typography variant="body1" fontWeight="bold" color="#2D336B">
+            {comment?.userId?.username || "Anonymous"}
+          </Typography>
+          <Typography variant="body2" color="#2D336B">
+            {comment.content}
+          </Typography>
         </Box>
-      </Container>
+      </Box>
+    ))
+  )}
+
+  {/* Show comment form only for logged-in users */}
+  {!token ? (
+    <Typography variant="body1" color="#2D336B">
+      <Link to='/auth'>Please login to post a comment.</Link>
+    </Typography>
+  ) : (
+    <Box component="form" onSubmit={handleSubmitComment} sx={{ marginTop: 4 }}>
+      <TextField
+        fullWidth
+        multiline
+        rows={3}
+        label="Write a comment..."
+        variant="outlined"
+        value={newComment}
+        onChange={(e) => setNewComment(e.target.value)}
+        sx={{ backgroundColor: "white", borderRadius: 2 }}
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        sx={{ marginTop: 2, backgroundColor: "#7886C7", color: "white" }}
+        disabled={loading}
+      >
+        {loading ? "Submitting..." : "Post Comment"}
+      </Button>
+    </Box>
+  )}
+</Container>
+
 
       {/* Back to Posts Button */}
       <Box sx={{ textAlign: "center", marginTop: 6 }}>
