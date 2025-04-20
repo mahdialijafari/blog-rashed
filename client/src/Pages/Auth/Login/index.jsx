@@ -22,7 +22,7 @@ const Login = ({ handlePageType }) => {
   const [fields, handleChange] = useFormFields();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { token, handleAuth } = useContext(AuthContext); // ✅ Extract token from context
+  const { token, handleAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,9 +30,8 @@ const Login = ({ handlePageType }) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-  
+
     try {
-      console.log("🔹 Sending request with:", fields);
       const response = await fetchData("auth", {
         method: "POST",
         headers: {
@@ -40,47 +39,41 @@ const Login = ({ handlePageType }) => {
         },
         body: JSON.stringify(fields),
       });
-  
-      console.log("✅ API Response:", response);
-  
+
       if (response.success) {
         notify(response.message, "success");
-  
+
         const { token, user } = response.data;
-        console.log("✅ Extracted Token:", token);
-        console.log("✅ Extracted User:", user);
-  
         dispatch(login({ token, user }));
         handleAuth(token, user);
         navigate("/profile");
       } else {
-        setError(response.message || "Invalid username or password");
+        setError(response.message || "نام کاربری یا رمز عبور اشتباه است");
       }
     } catch (error) {
-      console.error("❌ Login Error:", error);
-      setError("Connection Lost. Please check your network or API.");
+      setError("ارتباط با سرور برقرار نشد. لطفاً اینترنت خود را بررسی کنید.");
     } finally {
       setLoading(false);
     }
   };
-  
+
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" sx={{ direction: "rtl" }}>
       <Paper
         elevation={6}
         sx={{ padding: 4, marginBottom: "70px", mt: 8, textAlign: "center", bgcolor: "#FFF2F2" }}
       >
         <LoginIcon sx={{ fontSize: 50, color: "#2D336B", mb: 1 }} />
         <Typography variant="h5" fontWeight="bold" color="#2D336B" gutterBottom>
-          Welcome Back!
+          خوش آمدید!
         </Typography>
         <Typography variant="body2" color="#7886C7" mb={3}>
-          Please login to continue.
+          لطفاً وارد حساب کاربری خود شوید
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
             fullWidth
-            label="Username"
+            label="نام کاربری"
             name="username"
             value={fields.username || ""}
             onChange={handleChange}
@@ -91,7 +84,7 @@ const Login = ({ handlePageType }) => {
           />
           <TextField
             fullWidth
-            label="Password"
+            label="رمز عبور"
             name="password"
             type="password"
             value={fields.password || ""}
@@ -106,9 +99,9 @@ const Login = ({ handlePageType }) => {
               {error}
             </Typography>
           )}
-          <Box display="flex" justifyContent="space-between" mt={2}>
+          <Box display="flex" justifyContent="flex-end" mt={2}>
             <Link href="#" variant="body2" color="#A9B5DF">
-              Forgot password?
+              فراموشی رمز عبور؟
             </Link>
           </Box>
           <Button
@@ -118,13 +111,13 @@ const Login = ({ handlePageType }) => {
             sx={{ mt: 2, py: 1.5, bgcolor: "#2D336B", "&:hover": { bgcolor: "#7886C7" } }}
             disabled={loading}
           >
-            {loading ? <CircularProgress size={24} sx={{ color: "white" }} /> : "Login"}
+            {loading ? <CircularProgress size={24} sx={{ color: "white" }} /> : "ورود"}
           </Button>
         </form>
         <Typography variant="body2" mt={3}>
-          Don't have an account?
+          حساب کاربری ندارید؟
           <Link onClick={handlePageType} sx={{ color: "#2D336B", ml: 1, cursor: "pointer" }}>
-            Register Here
+            ثبت‌نام کنید
           </Link>
         </Typography>
       </Paper>

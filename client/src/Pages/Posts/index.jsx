@@ -22,17 +22,18 @@ const Posts = () => {
       }
     })();
   }, []);
-console.log(posts.title)
+
   return (
-    <Box sx={{ backgroundColor: '#FFF2F2', minHeight: '100vh', paddingBottom: 4 }}>
+    <Box sx={{ backgroundColor: '#FFF2F2', minHeight: '100vh', paddingBottom: 4, direction: 'rtl' }}>
+      
       {/* Hero Section */}
       <Box sx={{ backgroundColor: '#2D336B', color: 'white', padding: '50px 0', textAlign: 'center' }}>
         <Container>
           <Typography variant="h3" fontWeight="bold">
-            All Blog Posts
+            همه مقالات
           </Typography>
           <Typography variant="h6" sx={{ marginTop: 1 }}>
-            Explore our wide range of blog posts on various topics and categories.
+            مجموعه‌ای از مقالات متنوع در دسته‌بندی‌های مختلف را مرور کنید.
           </Typography>
         </Container>
       </Box>
@@ -48,17 +49,31 @@ console.log(posts.title)
             {posts.map((post) => (
               <Grid item xs={12} md={4} key={post._id}>
                 <Card sx={{ backgroundColor: '#A9B5DF', color: '#2D336B', borderRadius: 2, boxShadow: 3 }}>
-                  <CardMedia component="img" height="180" image={post?.image} alt={post?.title} sx={{ borderTopLeftRadius: 2, borderTopRightRadius: 2 }} />
+                  <CardMedia
+                    component="img"
+                    height="180"
+                    image={post?.image}
+                    alt={post?.title}
+                    sx={{ borderTopLeftRadius: 2, borderTopRightRadius: 2 }}
+                  />
                   <CardContent>
-                    <Typography variant="h6" fontWeight="bold">{post?.title}</Typography>
-                    <Typography variant="body2" sx={{ marginTop: 1, color: '#2D336B' }}>{post?.description.split(' ').slice(0,9).join(' ')}...</Typography>
+                    <Typography variant="h6" fontWeight="bold">
+                      {post?.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ marginTop: 1, color: '#2D336B' }}>
+                      {post?.description.split(' ').slice(0, 9).join(' ')}...
+                    </Typography>
                     <Box sx={{ marginTop: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Chip
                         label={post?.categoryId?.title}
                         sx={{ backgroundColor: '#7886C7', color: 'white', fontWeight: 'bold', padding: '5px 10px' }}
                       />
-                      <Button component={Link} to={`/post-details/${post._id}/${post.title.replaceAll(' ','-')}`} sx={{ color: '#2D336B', fontWeight: 'bold' }}>    
-                        Read More
+                      <Button
+                        component={Link}
+                        to={`/post-details/${post._id}/${post.title.replaceAll(' ', '-')}`}
+                        sx={{ color: '#2D336B', fontWeight: 'bold' }}
+                      >
+                        ادامه مطلب
                       </Button>
                     </Box>
                   </CardContent>
@@ -68,7 +83,7 @@ console.log(posts.title)
           </Grid>
         ) : (
           <Typography variant="body1" sx={{ textAlign: 'center', marginTop: 3, color: '#2D336B' }}>
-            No posts available.
+            هیچ مقاله‌ای موجود نیست.
           </Typography>
         )}
       </Container>
@@ -76,10 +91,10 @@ console.log(posts.title)
       {/* Call to Action Section */}
       <Box sx={{ textAlign: 'center', marginTop: 6 }}>
         <Typography variant="h5" fontWeight="bold" color="#2D336B">
-          Join Our Community
+          به جامعه ما بپیوندید
         </Typography>
         <Typography variant="body1" color="#2D336B" sx={{ marginTop: 1 }}>
-          Stay updated with the latest articles and insights by signing up.
+          با عضویت در سایت از جدیدترین مقالات و اخبار باخبر شوید.
         </Typography>
         <Button
           variant="contained"
@@ -87,7 +102,7 @@ console.log(posts.title)
           to="/register"
           sx={{ backgroundColor: '#7886C7', color: 'white', marginTop: 2 }}
         >
-          Register Now
+          ثبت‌نام
         </Button>
       </Box>
     </Box>

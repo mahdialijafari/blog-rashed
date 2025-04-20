@@ -42,34 +42,34 @@ const Register = ({ handlePageType }) => {
         handleAuth(response.data.token, response.data.user);
         navigate("/");
       } else {
-        setError(response.message || "Registration failed. Please try again.");
+        setError(response.message || "ثبت نام ناموفق بود. دوباره تلاش کنید.");
       }
     } catch (error) {
-      setError("Connection Lost");
+      setError("ارتباط با سرور قطع شده است.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" sx={{ direction: "rtl" }}>
       <Paper
         elevation={6}
         sx={{ padding: 4, marginBottom: "70px", mt: 8, textAlign: "center", bgcolor: "#FFF2F2" }}
       >
         <PersonAddIcon sx={{ fontSize: 50, color: "#2D336B", mb: 1 }} />
         <Typography variant="h5" fontWeight="bold" color="#2D336B" gutterBottom>
-          Create an Account
+          ایجاد حساب کاربری
         </Typography>
         <Typography variant="body2" color="#7886C7" mb={3}>
-          Join us today! Fill in the details below.
+          به ما بپیوندید! اطلاعات زیر را وارد کنید.
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
             fullWidth
-            label="Username"
+            label="نام کاربری"
             name="username"
-            value={fields.username}
+            value={fields.username || ""}
             onChange={handleChange}
             variant="outlined"
             margin="normal"
@@ -78,10 +78,10 @@ const Register = ({ handlePageType }) => {
           />
           <TextField
             fullWidth
-            label="Email"
+            label="ایمیل"
             name="email"
             type="email"
-            value={fields.email}
+            value={fields.email || ""}
             onChange={handleChange}
             variant="outlined"
             margin="normal"
@@ -90,10 +90,10 @@ const Register = ({ handlePageType }) => {
           />
           <TextField
             fullWidth
-            label="Password"
+            label="رمز عبور"
             name="password"
             type="password"
-            value={fields.password}
+            value={fields.password || ""}
             onChange={handleChange}
             variant="outlined"
             margin="normal"
@@ -112,13 +112,13 @@ const Register = ({ handlePageType }) => {
             sx={{ mt: 2, py: 1.5, bgcolor: "#2D336B", "&:hover": { bgcolor: "#7886C7" } }}
             disabled={loading}
           >
-            {loading ? <CircularProgress size={24} sx={{ color: "white" }} /> : "Register"}
+            {loading ? <CircularProgress size={24} sx={{ color: "white" }} /> : "ثبت‌نام"}
           </Button>
         </form>
         <Typography variant="body2" mt={3}>
-          Already have an account?
+          قبلاً ثبت‌نام کرده‌اید؟
           <Link onClick={handlePageType} sx={{ color: "#2D336B", ml: 1, cursor: "pointer" }}>
-            Login Here
+            وارد شوید
           </Link>
         </Typography>
       </Paper>

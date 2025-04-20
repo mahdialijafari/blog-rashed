@@ -20,7 +20,6 @@ const Profile = () => {
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Extract user from Redux state
   const user = useSelector((state) => state.auth?.user);
   const token = useSelector((state) => state.auth?.token);
 
@@ -42,7 +41,7 @@ const Profile = () => {
           setProfile(response.data);
         }
       } catch (error) {
-        console.error("Failed to fetch user data:", error);
+        console.error("خطا در دریافت اطلاعات کاربر:", error);
       } finally {
         setLoading(false);
       }
@@ -51,7 +50,6 @@ const Profile = () => {
     fetchProfile();
   }, [user?._id, token]);
 
-  // Update user profile
   const handleUpdateProfile = async () => {
     if (!user?._id) return;
 
@@ -70,7 +68,7 @@ const Profile = () => {
         setEditMode(false);
       }
     } catch (error) {
-      console.error("Failed to update profile:", error);
+      console.error("خطا در بروزرسانی پروفایل:", error);
     } finally {
       setLoading(false);
     }
@@ -89,7 +87,7 @@ const Profile = () => {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ direction: "rtl" }}>
       <Paper
         elevation={8}
         sx={{
@@ -114,10 +112,10 @@ const Profile = () => {
             {profile.username?.charAt(0).toUpperCase()}
           </Avatar>
           <Typography variant="h4" fontWeight="bold" color="#2D336B" mt={2}>
-            Profile Information
+            اطلاعات کاربری
           </Typography>
           <Typography variant="body2" color="#7886C7" mb={3}>
-            Manage your account details
+            مدیریت اطلاعات حساب کاربری شما
           </Typography>
         </Box>
 
@@ -125,7 +123,7 @@ const Profile = () => {
           <>
             <TextField
               fullWidth
-              label="Username"
+              label="نام کاربری"
               name="username"
               value={profile.username}
               onChange={handleChange}
@@ -134,7 +132,7 @@ const Profile = () => {
             />
             <TextField
               fullWidth
-              label="Email"
+              label="ایمیل"
               name="email"
               value={profile.email}
               onChange={handleChange}
@@ -143,7 +141,7 @@ const Profile = () => {
             />
             <TextField
               fullWidth
-              label="Role"
+              label="نقش کاربر"
               name="role"
               value={profile.role}
               onChange={handleChange}
@@ -164,7 +162,7 @@ const Profile = () => {
               }}
               onClick={handleUpdateProfile}
             >
-              <SaveIcon sx={{ mr: 1 }} /> Save Changes
+              <SaveIcon sx={{ ml: 1 }} /> ذخیره تغییرات
             </Button>
           </>
         ) : (
@@ -182,13 +180,13 @@ const Profile = () => {
               }}
             >
               <Typography variant="h6" color="#2D336B">
-                <strong>Username:</strong> {profile.username}
+                <strong>نام کاربری:</strong> {profile.username}
               </Typography>
               <Typography variant="h6" color="#2D336B">
-                <strong>Email:</strong> {profile.email}
+                <strong>ایمیل:</strong> {profile.email}
               </Typography>
               <Typography variant="h6" color="#2D336B">
-                <strong>Role:</strong> {profile.role}
+                <strong>نقش:</strong> {profile.role}
               </Typography>
             </Box>
 

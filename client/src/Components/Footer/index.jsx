@@ -9,24 +9,25 @@ const Footer = () => {
         backgroundColor: '#2D336B',
         color: '#fff',
         textAlign: 'center',
-        padding:'60px 0'
+        padding: '60px 0',
+        direction: 'rtl', // Important for Persian
       }}
     >
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12} sm={4}>
-          <Typography variant="h6">About Us</Typography>
+          <Typography variant="h6">درباره ما</Typography>
           <Typography variant="body2">
-            Welcome to our blog! We provide the latest articles and insights to help you stay informed.
+            به وبلاگ ما خوش آمدید! اینجا جدیدترین مقالات و دیدگاه‌ها را برای شما فراهم می‌کنیم تا همیشه به‌روز باشید.
           </Typography>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Typography variant="h6">Quick Links</Typography>
-          <Link href="/" color="inherit" underline="hover" sx={{ display: 'block', marginBottom: '10px' }}>Home</Link>
-          <Link href="/posts" color="inherit" underline="hover" sx={{ display: 'block', marginBottom: '10px' }}>Posts</Link>
-          <Link href="/categories" color="inherit" underline="hover" sx={{ display: 'block', marginBottom: '10px' }}>Categories</Link>
+          <Typography variant="h6">لینک‌های سریع</Typography>
+          <Link href="/" color="inherit" underline="hover" sx={{ display: 'block', marginBottom: '10px' }}>خانه</Link>
+          <Link href="/posts" color="inherit" underline="hover" sx={{ display: 'block', marginBottom: '10px' }}>مقالات</Link>
+          <Link href="/categories" color="inherit" underline="hover" sx={{ display: 'block', marginBottom: '10px' }}>دسته‌بندی‌ها</Link>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Typography variant="h6">Follow Us</Typography>
+          <Typography variant="h6">ما را دنبال کنید</Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
             <Instagram sx={{ color: '#fff', cursor: 'pointer' }} />
             <Facebook sx={{ color: '#fff', cursor: 'pointer' }} />
@@ -36,7 +37,7 @@ const Footer = () => {
         </Grid>
       </Grid>
       <Typography variant="body2" sx={{ marginTop: '20px' }}>
-        &copy; 2025 Blog, All Rights Reserved.
+        &copy; ۲۰۲۵ وبلاگ فارسی، تمامی حقوق محفوظ است.
       </Typography>
     </Box>
   );

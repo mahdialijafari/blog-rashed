@@ -11,13 +11,13 @@ const Home = () => {
   const { categoryId, categoryName } = useParams();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  // Predefined Trending Topics
-  const trendingTopics = ["AI & Machine Learning", "Web Development", "Blockchain & Crypto", "UI/UX Design", "Cybersecurity"];
+
+  const trendingTopics = ["هوش مصنوعی", "برنامه‌نویسی وب", "بلاکچین و رمزارز", "طراحی رابط کاربری", "امنیت سایبری"];
 
   useEffect(() => {
     (async () => {
       try {
-        let endpoint = "posts?populate=categoryId"; 
+        let endpoint = "posts?populate=categoryId";
 
         if (categoryId && categoryId !== "all") {
           endpoint += `&filters[categoryId][$eq]=${categoryId}`;
@@ -40,24 +40,29 @@ const Home = () => {
   }, [categoryId]);
 
   return (
-    <Box sx={{ backgroundColor: '#FFF2F2', minHeight: '100vh', paddingBottom: 4 }}>
+    <Box sx={{ backgroundColor: '#FFF2F2', minHeight: '100vh', paddingBottom: 4, direction: 'rtl' }}>
       
       {/* Hero Section */}
       <Box sx={{ backgroundColor: '#2D336B', color: 'white', padding: '50px 0', textAlign: 'center' }}>
         <Container>
-          <Typography variant="h3" fontWeight="bold">Welcome to Our Blog</Typography>
+          <Typography variant="h3" fontWeight="bold">به دنیای مقالات خوش آمدید</Typography>
           <Typography variant="h6" sx={{ marginTop: 1 }}>
-            Explore amazing articles, news, and insights from our authors.
+            با جدیدترین مطالب و اخبار از بهترین نویسندگان همراه شوید.
           </Typography>
-          <Button variant="contained" component={Link} to="/posts" sx={{ backgroundColor: '#A9B5DF', color: '#2D336B', marginTop: 2, fontWeight: 'bold' }}>
-            Explore Posts
+          <Button 
+            variant="contained" 
+            component={Link} 
+            to="/posts/all/دسته‌بندی-همه" 
+            sx={{ backgroundColor: '#A9B5DF', color: '#2D336B', marginTop: 2, fontWeight: 'bold' }}
+          >
+            شروع مطالعه
           </Button>
         </Container>
       </Box>
 
       {/* Featured Posts Section */}
       <Container sx={{ marginTop: 4 }}>
-        <Typography variant="h4" fontWeight="bold" color="#2D336B" gutterBottom>Featured Posts</Typography>
+        <Typography variant="h4" fontWeight="bold" color="#2D336B" gutterBottom>مطالب منتخب</Typography>
         {loading ? (
           <Box sx={{ textAlign: 'center', marginTop: 3 }}><CircularProgress /></Box>
         ) : posts.length > 0 ? (
@@ -68,9 +73,15 @@ const Home = () => {
                   <CardMedia component="img" height="180" image={post?.image} alt={post?.title} />
                   <CardContent>
                     <Typography variant="h6" fontWeight="bold">{post?.title}</Typography>
-                    <Typography variant="body2" sx={{ marginTop: 1 }}>{post?.description.split(' ').slice(0,9).join(' ')}...</Typography>
-                    <Button component={Link} to={`/post-details/${post._id}/${post.title.replaceAll(' ','-')}`} sx={{ marginTop: 2, color: '#2D336B', fontWeight: 'bold' }}>
-                      Read More
+                    <Typography variant="body2" sx={{ marginTop: 1 }}>
+                      {post?.description.split(' ').slice(0, 9).join(' ')}...
+                    </Typography>
+                    <Button 
+                      component={Link} 
+                      to={`/post-details/${post._id}/${post.title.replaceAll(' ', '-')}`} 
+                      sx={{ marginTop: 2, color: '#2D336B', fontWeight: 'bold' }}
+                    >
+                      مطالعه بیشتر
                     </Button>
                   </CardContent>
                 </Card>
@@ -78,45 +89,74 @@ const Home = () => {
             ))}
           </Grid>
         ) : (
-          <Typography variant="body1" sx={{ textAlign: 'center', marginTop: 3, color: '#2D336B' }}>No posts available.</Typography>
+          <Typography variant="body1" sx={{ textAlign: 'center', marginTop: 3, color: '#2D336B' }}>
+            مطلبی برای نمایش وجود ندارد.
+          </Typography>
         )}
       </Container>
 
       {/* Popular Categories */}
       <Container sx={{ marginTop: 6 }}>
-        <Typography variant="h4" fontWeight="bold" color="#2D336B" gutterBottom>Categories</Typography>
+        <Typography variant="h4" fontWeight="bold" color="#2D336B" gutterBottom>دسته‌بندی‌های محبوب</Typography>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center' }}>
           {posts.map((e, index) => (
-            <Chip key={index} label={e?.categoryId?.title} clickable sx={{ backgroundColor: '#A9B5DF', color: '#2D336B', fontWeight: 'bold', padding: '10px', fontSize: '16px' }} onClick={() => navigate(`/posts/${e?.categoryId?._id}/${e?.categoryId?.title}`)} />
+            <Chip 
+              key={index} 
+              label={e?.categoryId?.title} 
+              clickable 
+              sx={{ backgroundColor: '#A9B5DF', color: '#2D336B', fontWeight: 'bold', padding: '10px', fontSize: '16px' }}
+              onClick={() => navigate(`/posts/${e?.categoryId?._id}/${e?.categoryId?.title}`)}
+            />
           ))}
         </Box>
       </Container>
 
       {/* Trending Topics */}
       <Container sx={{ marginTop: 6 }}>
-        <Typography variant="h4" fontWeight="bold" color="#2D336B" gutterBottom>Trending Topics</Typography>
+        <Typography variant="h4" fontWeight="bold" color="#2D336B" gutterBottom>موضوعات داغ</Typography>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center' }}>
           {trendingTopics.map((topic, index) => (
-            <Chip key={index} label={topic} clickable sx={{ backgroundColor: '#7886C7', color: 'white', fontWeight: 'bold', padding: '10px', fontSize: '16px' }} onClick={() => navigate(`/categories/${topic.toLowerCase().replace(/\s+/g, '-')}`)} />
+            <Chip 
+              key={index} 
+              label={topic} 
+              clickable 
+              sx={{ backgroundColor: '#7886C7', color: 'white', fontWeight: 'bold', padding: '10px', fontSize: '16px' }}
+              onClick={() => navigate(`/categories/${topic.toLowerCase().replace(/\s+/g, '-')}`)}
+            />
           ))}
         </Box>
       </Container>
 
       {/* Newsletter Signup */}
       <Container sx={{ marginTop: 6, textAlign: 'center' }}>
-        <Typography variant="h4" fontWeight="bold" color="#2D336B" gutterBottom>Subscribe to Our Newsletter</Typography>
-        <Typography variant="body1" color="#2D336B">Get the latest articles delivered to your inbox!</Typography>
+        <Typography variant="h4" fontWeight="bold" color="#2D336B" gutterBottom>عضویت در خبرنامه</Typography>
+        <Typography variant="body1" color="#2D336B">
+          جدیدترین مقالات را مستقیم در ایمیل خود دریافت کنید!
+        </Typography>
         <Box sx={{ marginTop: 2, display: 'flex', justifyContent: 'center', gap: 1 }}>
-          <TextField label="Enter your email" variant="outlined" sx={{ backgroundColor: 'white' }} />
-          <Button variant="contained" sx={{ backgroundColor: '#7886C7', color: 'white', fontWeight: 'bold' }}>Subscribe</Button>
+          <TextField label="ایمیل خود را وارد کنید" variant="outlined" sx={{ backgroundColor: 'white' }} />
+          <Button variant="contained" sx={{ backgroundColor: '#7886C7', color: 'white', fontWeight: 'bold' }}>
+            عضویت
+          </Button>
         </Box>
       </Container>
 
       {/* Call to Action */}
       <Box sx={{ textAlign: 'center', marginTop: 6 }}>
-        <Typography variant="h5" fontWeight="bold" color="#2D336B">Join Our Community</Typography>
-        <Typography variant="body1" color="#2D336B" sx={{ marginTop: 1 }}>Sign up to stay updated with the latest articles and insights.</Typography>
-        <Button variant="contained" component={Link} to="/register" sx={{ backgroundColor: '#7886C7', color: 'white', marginTop: 2 }}>Register Now</Button>
+        <Typography variant="h5" fontWeight="bold" color="#2D336B">
+          به جامعه ما بپیوندید
+        </Typography>
+        <Typography variant="body1" color="#2D336B" sx={{ marginTop: 1 }}>
+          همین حالا ثبت‌نام کنید و از آخرین مطالب باخبر شوید.
+        </Typography>
+        <Button 
+          variant="contained" 
+          component={Link} 
+          to="/register" 
+          sx={{ backgroundColor: '#7886C7', color: 'white', marginTop: 2 }}
+        >
+          ثبت‌نام
+        </Button>
       </Box>
     </Box>
   );

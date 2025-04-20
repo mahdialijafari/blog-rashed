@@ -1,20 +1,26 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
-import {BounceLoader} from 'react-spinners'
+import { BounceLoader } from 'react-spinners';
+
 export default function Loading() {
   return (
     <Box sx={{
-        display:'flex',
-        justifyContent:'center',
-        alignItems:'center'
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minHeight: '70vh',
+      direction: 'rtl',
     }}>
       <BounceLoader
         color="#3894ff"
-        cssOverride={{}}
         loading
         size={80}
-        speedMultiplier={0}
-      />{" "}
+        speedMultiplier={1}
+      />
+      <Typography sx={{ mt: 2, fontSize: '18px', color: '#3894ff' }}>
+        در حال بارگذاری... لطفاً صبور باشید
+      </Typography>
     </Box>
   );
 }

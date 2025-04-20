@@ -10,31 +10,29 @@ import {
 } from "@mui/material";
 
 const Article = () => {
-  // Sample article data
+  // نمونه مقاله
   const article = {
-    title: "The Future of Artificial Intelligence",
-    author: "John Doe",
-    avatar: "https://via.placeholder.com/150", // Placeholder avatar
-    date: "March 21, 2025",
-    readTime: "6 min read",
+    title: "آینده هوش مصنوعی",
+    author: "علی رضایی",
+    avatar: "https://via.placeholder.com/150", // آواتار نمونه
+    date: "فروردین ۱۴۰۴",
+    readTime: "۶ دقیقه مطالعه",
     coverImage: "https://source.unsplash.com/800x400/?technology,ai",
     content: `
-      Artificial Intelligence (AI) is revolutionizing industries across the globe. 
-      From self-driving cars to smart assistants, AI is enhancing human capabilities 
-      and redefining the way we interact with technology. 
+      هوش مصنوعی (AI) در حال تحول صنایع در سراسر جهان است.
+      از خودروهای خودران گرفته تا دستیارهای هوشمند، این فناوری در حال افزایش قابلیت‌های انسانی و تغییر نحوه تعامل ما با تکنولوژی است.
       
-      The rapid advancements in AI-driven models have opened new opportunities in healthcare, 
-      finance, and creative fields. While many see AI as a tool for innovation, ethical concerns 
-      remain a hot topic, especially in areas like deepfakes, bias in AI models, and job automation.
+      پیشرفت‌های سریع در مدل‌های مبتنی بر هوش مصنوعی فرصت‌های تازه‌ای در حوزه‌های سلامت، مالی و خلاقیت ایجاد کرده است.
+      با این حال، نگرانی‌های اخلاقی همچنان موضوع داغی هستند، به ویژه در زمینه‌هایی مانند دیپ‌فیک، تعصب در مدل‌های هوش مصنوعی و اتوماسیون مشاغل.
       
-      What does the future hold? Experts predict that AI will become even more integrated into our 
-      daily lives, improving efficiency, creativity, and personalized experiences. However, responsible 
-      AI development and governance will play a key role in ensuring that these advancements benefit humanity as a whole.
+      آینده چه چیزی را برای ما رقم خواهد زد؟ کارشناسان پیش‌بینی می‌کنند که AI در زندگی روزمره ما حتی بیشتر ادغام خواهد شد
+      و باعث بهبود بهره‌وری، خلاقیت و تجربه‌های شخصی‌تر خواهد شد.
+      اما توسعه مسئولانه و مدیریت هوش مصنوعی نقش کلیدی در اطمینان از منافع بشری ایفا خواهد کرد.
     `,
   };
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ direction: "rtl" }}>
       <Paper
         elevation={8}
         sx={{
@@ -45,7 +43,7 @@ const Article = () => {
           boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",
         }}
       >
-        {/* Article Header */}
+        {/* هدر مقاله */}
         <Box
           sx={{
             display: "flex",
@@ -70,11 +68,11 @@ const Article = () => {
           </Box>
         </Box>
 
-        {/* Article Image */}
+        {/* تصویر مقاله */}
         <Box
           component="img"
           src={article.coverImage}
-          alt="Article Cover"
+          alt="تصویر مقاله"
           sx={{
             width: "100%",
             height: "auto",
@@ -84,18 +82,18 @@ const Article = () => {
           }}
         />
 
-        {/* Article Content */}
+        {/* محتوای مقاله */}
         <Typography variant="body1" color="#2D336B" sx={{ lineHeight: 1.8 }}>
           {article.content}
         </Typography>
 
         <Divider sx={{ my: 4 }} />
 
-        {/* Tags */}
+        {/* تگ‌ها */}
         <Box display="flex" gap={1} flexWrap="wrap">
-          <Chip label="Technology" sx={{ bgcolor: "#2D336B", color: "white" }} />
-          <Chip label="AI" sx={{ bgcolor: "#7886C7", color: "white" }} />
-          <Chip label="Future" sx={{ bgcolor: "#A9B5DF", color: "white" }} />
+          <Chip label="فناوری" sx={{ bgcolor: "#2D336B", color: "white", fontWeight: "bold" }} />
+          <Chip label="هوش مصنوعی" sx={{ bgcolor: "#7886C7", color: "white", fontWeight: "bold" }} />
+          <Chip label="آینده" sx={{ bgcolor: "#A9B5DF", color: "white", fontWeight: "bold" }} />
         </Box>
       </Paper>
     </Container>
